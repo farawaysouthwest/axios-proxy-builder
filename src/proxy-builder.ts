@@ -1,4 +1,5 @@
 import { getProxyEnv } from "./utils";
+import tunnel from "tunnel";
 
 export interface RequestProxy {
   proxy: {
@@ -13,15 +14,30 @@ export interface RequestProxy {
 }
 
 export const configureProxy = (requestURL: string): RequestProxy => {
-  const url: URL = new URL(requestURL);
-  const env: string = getProxyEnv(url);
+  const requestURLObject: URL = new URL(requestURL);
+  const proxyUrl: string = getProxyEnv(requestURLObject);
 
   // short circuit if null
-  if (!env) return null;
+  if (!proxyUrl) return null;
 
   // parse proxy url
-  const { hostname, port, protocol, username, password } = new URL(env);
+  const { hostname, port, protocol, username, password } = new URL(proxyUrl);
+  
+  // axios proxy implementation for https over http doesn't work. hence, this implementation
+  if (requestURLObject.protocol === 'https:' && (protocol === 'http:')) {
+    const agent = tunnel.httpsOverHttp({
+      proxy: {
+        host: hostname,
+        port: port
+      }
+    });
 
+    return {
+      proxy: false,
+      httpsAgent: agent
+    };
+  }
+  
   // return proxy object for axios request
   return {
     proxy: {
