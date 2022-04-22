@@ -1,6 +1,6 @@
 # axios-proxy-builder
 
-A simple, utility to build an axios proxy request object from standard http proxy environmental variables.
+A simple utility to build an axios proxy request object from standard http proxy environmental variables.
 
 NoProxy logic inspired by the (now deprecated) Request project:
 https://github.com/request/request/blob/3c0cddc7c8eb60b470e9519da85896ed7ee0081e/lib/getProxyFromURI.js
