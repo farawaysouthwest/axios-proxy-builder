@@ -54,23 +54,11 @@ export const getProxyEnv = (requestURL: URL): string => {
 
   // get proxy based on request url's protocol
   if (requestURL.protocol == "http:") {
-    return (
-      process.env.HTTP_PROXY ||
-      process.env.http_proxy ||
-      process.env.HTTPS_PROXY ||
-      process.env.https_proxy ||
-      null
-    );
+    return process.env.HTTP_PROXY || process.env.http_proxy || null;
   }
 
   if (requestURL.protocol == "https:") {
-    return (
-      process.env.HTTPS_PROXY ||
-      process.env.https_proxy ||
-      process.env.HTTP_PROXY ||
-      process.env.http_proxy ||
-      null
-    );
+    return process.env.HTTPS_PROXY || process.env.https_proxy || null;
   }
 
   // not a supported protocol...
