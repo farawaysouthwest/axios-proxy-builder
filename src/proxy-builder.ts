@@ -1,8 +1,9 @@
 import { getProxyEnv } from "./utils";
-import tunnel from "tunnel";
+import * as tunnel from "tunnel";
+import { Agent } from "http";
 
 export interface RequestProxy {
-  proxy: {
+  proxy?: {
     protocol: string;
     hostname: string;
     port: number;
@@ -10,7 +11,8 @@ export interface RequestProxy {
       username: string;
       password: string;
     };
-  };
+  } | boolean;
+  httpsAgent?: Agent;
 }
 
 export const configureProxy = (requestURL: string): RequestProxy => {
