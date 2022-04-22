@@ -12,29 +12,30 @@ describe("Test configureProxy", () => {
     process.env.HTTPS_PROXY = https_env;
     const result = configureProxy("https://test.com:8000");
 
-    expect(result).toEqual({
-      proxy: {
-        hostname: "testproxy.com",
-        port: 8000,
-        protocol: "https:",
-        auth: {
-          username: "",
-          password: "",
-        },
+    expect(result.proxy).toEqual({
+      hostname: "testproxy.com",
+      port: 8000,
+      protocol: "https:",
+      auth: {
+        username: "",
+        password: "",
       },
-    } as RequestProxy);
+    });
+    expect(result.httpsAgent).toBeUndefined();
   });
 
   test("with tunnel agent", () => {
     process.env.HTTP_PROXY = http_env;
 
     const result = configureProxy("https://test.com:8000");
-    console.log(result);
+
+    expect(result.httpsAgent).toBeDefined();
+    expect(result.proxy).toBeUndefined();
   });
 
   test("with no env", () => {
     const result = configureProxy("https://test.com:8000");
 
-    expect(result).toEqual(null);
+    expect(result).toBeNull();
   });
 });
