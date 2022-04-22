@@ -1,16 +1,17 @@
 import { getProxyEnv } from "./utils";
-import tunnel from "tunnel";
+import * as tunnel from "tunnel";
 
 export interface RequestProxy {
   proxy: {
-    protocol: string;
-    hostname: string;
-    port: number;
+    protocol?: string;
+    hostname?: string;
+    port?: number;
     auth: {
-      username: string;
-      password: string;
+      username?: string;
+      password?: string;
     };
-  };
+  } | boolean;
+  httpsAgent?: boolean;
 }
 
 export const configureProxy = (requestURL: string): RequestProxy => {
