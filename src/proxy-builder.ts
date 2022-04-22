@@ -3,15 +3,17 @@ import { httpsOverHttp } from "tunnel";
 import { Agent } from "http";
 
 export interface RequestProxy {
-  proxy?: {
-    protocol: string;
-    hostname: string;
-    port: number;
-    auth: {
-      username: string;
-      password: string;
-    };
-  };
+  proxy:
+    | {
+        protocol: string;
+        hostname: string;
+        port: number;
+        auth: {
+          username: string;
+          password: string;
+        };
+      }
+    | boolean;
   httpsAgent?: Agent;
 }
 
@@ -35,6 +37,7 @@ export const configureProxy = (requestURL: string): RequestProxy => {
     });
 
     return {
+      proxy: false,
       httpsAgent: agent,
     };
   }

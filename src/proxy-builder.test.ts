@@ -24,13 +24,12 @@ describe("Test configureProxy", () => {
     expect(result.httpsAgent).toBeUndefined();
   });
 
-  test("with tunnel agent", () => {
-    process.env.HTTP_PROXY = http_env;
-
+  test("with tunnel agent - with http env in proxy", () => {
+    process.env.HTTPS_PROXY = http_env;
     const result = configureProxy("https://test.com:8000");
 
-    expect(result.httpsAgent).toBeDefined();
-    expect(result.proxy).toBeUndefined();
+    expect(result.proxy).toEqual(false);
+    expect(!!result.httpsAgent).toEqual(true);
   });
 
   test("with no env", () => {
