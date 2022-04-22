@@ -26,7 +26,7 @@ describe("Test configureProxy", () => {
   });
 
   test("with http env in proxy", () => {
-    process.env.HTTPS_PROXY = http_env;
+    process.env.HTTP_PROXY = http_env;
     const result = configureProxy("https://test.com:8000");
 
     expect(result.proxy).toEqual(false);
