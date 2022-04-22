@@ -1,6 +1,6 @@
 {
   "name": "axios-proxy-builder",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A simple utility to build an axios proxy request object from env's",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,7 +8,7 @@
     "/dist"
   ],
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "build": "tsc",
     "publish-lib": "npm run build && npm publish",
     "publish-beta": "npm run build && npm publish --tag beta",
@@ -27,9 +27,13 @@
   "devDependencies": {
     "@types/jest": "^27.4.1",
     "@types/node": "^17.0.23",
+    "@types/tunnel": "^0.0.3",
     "jest": "^27.5.1",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "tunnel": "^0.0.6"
   }
 }
