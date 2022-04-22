@@ -1,5 +1,5 @@
 import { configureProxy, RequestProxy } from "./proxy-builder";
-import { https_env, https_request } from "./test-fixtures";
+import { https_env, https_request, http_env } from "./test-fixtures";
 
 describe("Test configureProxy", () => {
   afterEach(() => {
@@ -23,6 +23,13 @@ describe("Test configureProxy", () => {
         },
       },
     } as RequestProxy);
+  });
+
+  test("with tunnel agent", () => {
+    process.env.HTTP_PROXY = http_env;
+
+    const result = configureProxy("https://test.com:8000");
+    console.log(result);
   });
 
   test("with no env", () => {
